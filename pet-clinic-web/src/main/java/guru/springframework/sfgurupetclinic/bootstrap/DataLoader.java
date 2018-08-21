@@ -17,21 +17,24 @@ public class DataLoader implements CommandLineRunner {
         this.vetService = vetService;
     }
 
-    /*public DataLoader() {
-        ownerService = new OwnerServiceMap();
-        vetService = new VetServiceMap();
-    }*/
+    /*
+     This method will be executed
+     after the application context is loaded
+     and right before the Spring Application run method is completed.
+     */
 
     @Override
     public void run(String... args) throws Exception {
         Owner owner1 = new Owner();
         owner1.setFirstName("Michael");
         owner1.setLastName("Weston");
+        owner1.setId(1L);
         ownerService.save(owner1);
 
         Owner owner2 = new Owner();
         owner2.setFirstName("Fiona");
         owner2.setLastName("Glenanne");
+        owner2.setId(2L);
         ownerService.save(owner2);
 
         System.out.println("Loaded owners...");
