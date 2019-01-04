@@ -47,8 +47,6 @@
 
 	<scm>
 		<!--<developerConnection>scm:git:https://github.com/annivajo/sfguru-petclinic.git</developerConnection>-->
-		<developerConnection>scm:git:https://annivajo:nowiamongithub14@github.com/annivajo/sfguru-petclinic.git</developerConnection>
-
 	  <tag>HEAD</tag>
   </scm>
 
