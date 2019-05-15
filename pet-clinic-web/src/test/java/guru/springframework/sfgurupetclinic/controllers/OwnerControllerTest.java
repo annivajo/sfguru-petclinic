@@ -96,4 +96,15 @@ class OwnerControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/owners/1"));
     }
+
+    @Test
+    void processFindFormNoOwnerFound() throws Exception {
+        mockMvc.perform(get("/owners")
+                .param("lastName", "Unknown"))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeHasFieldErrors("owner", "lastName"))
+                .andExpect(model().attributeHasFieldErrorCode("owner", "lastName", "notFound"))
+                .andExpect(view().name("owners/findOwners"));
+
+    }
 }
