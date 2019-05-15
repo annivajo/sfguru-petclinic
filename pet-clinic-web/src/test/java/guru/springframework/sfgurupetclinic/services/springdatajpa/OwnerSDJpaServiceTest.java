@@ -51,7 +51,7 @@ class OwnerSDJpaServiceTest {
     }
 
     @Test
-    void findAll() {
+    void listOwners() {
         Set<Owner> ownerSet = new HashSet<>();
         ownerSet.add(Owner.builder().id(1L).build());
         ownerSet.add(Owner.builder().id(2L).build());
@@ -103,4 +103,6 @@ class OwnerSDJpaServiceTest {
         service.deleteById(1L);
         verify(ownerRepository).deleteById(anyLong());
     }
+
+
 }

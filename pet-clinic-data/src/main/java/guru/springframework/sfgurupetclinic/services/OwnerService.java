@@ -2,9 +2,11 @@ package guru.springframework.sfgurupetclinic.services;
 
 import guru.springframework.sfgurupetclinic.model.Owner;
 
-import java.util.Set;
+import java.util.List;
 
 public interface OwnerService extends CrudService<Owner, Long> {
 
     Owner findByLastName(String lastName);
+
+    List<Owner> findAllByLastNameLike(String lastName);
 }
