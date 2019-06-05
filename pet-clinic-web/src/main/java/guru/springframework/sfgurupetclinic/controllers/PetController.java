@@ -1,17 +1,18 @@
 package guru.springframework.sfgurupetclinic.controllers;
 
 import guru.springframework.sfgurupetclinic.model.Owner;
+import guru.springframework.sfgurupetclinic.model.Pet;
 import guru.springframework.sfgurupetclinic.model.PetType;
 import guru.springframework.sfgurupetclinic.services.OwnerService;
 import guru.springframework.sfgurupetclinic.services.PetService;
 import guru.springframework.sfgurupetclinic.services.PetTypeService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Collection;
 
 @Controller
@@ -44,4 +45,30 @@ public class PetController {
     public void initOwnerBinder(WebDataBinder dataBinder) {
         dataBinder.setDisallowedFields("id");
     }
+
+    @GetMapping("/pets/new")
+    public String initCreationForm(Owner owner, Model model) {
+        model.addAttribute("pet", owner.getPets().add(new Pet()));
+        return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
+    }
+
+    @GetMapping("/pets/{petId}/edit")
+    public String initUpdateForm(@PathVariable Long petId, Model model) {
+        model.addAttribute("pet", petService.findById(petId));
+        return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
+    }
+
+    @PostMapping("/pets/{petId}/edit")
+    public String processUpdateForm(@Valid Pet pet, BindingResult result, Owner owner, Model model) {
+        if (result.hasErrors()) {
+            pet.setOwner(owner);
+            model.addAttribute("pet", pet);
+            return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
+        } else {
+            owner.getPets().add(pet);
+            petService.save(pet);
+            return "redirect:/owners/" + owner.getId();
+        }
+    }
+
 }
