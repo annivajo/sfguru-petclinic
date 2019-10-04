@@ -2,11 +2,11 @@
       xmlns:th="http://www.thymeleaf.org">
 
 <body>
-<!--/*@thymesVar id="pet" type="guru.springframework.sfgurupetclinic.model.Pet"*/-->
 <h2>
+    <!--/*@thymesVar id="pet" type="guru.springframework.sfgurupetclinic.model.Pet"*/-->
     <th:block th:if="${pet['new']}">New</th:block>
-    Pet
 </h2>
+<!-- /*@thymesVar id="pet" type="guru.springframework.sfgurupetclinic.model.Pet"*/ -->
 <form class="form-horizontal" method="post" th:object="${pet}">
     <input name="id" th:value="*{id}" type="hidden"/>
     <div class="form-group has-feedback">

@@ -48,7 +48,10 @@ public class PetController {
 
     @GetMapping("/pets/new")
     public String initCreationForm(Owner owner, Model model) {
-        model.addAttribute("pet", owner.getPets().add(new Pet()));
+        Pet pet = new Pet();
+        owner.getPets().add(pet);
+        pet.setOwner(owner);
+        model.addAttribute("pet", pet);
         return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
     }
 
